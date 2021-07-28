@@ -10,7 +10,11 @@
     <div id="poster"></div>
     <style type="text/css">
     img{
-        width: 200px;
+        width: 300px;
+    }
+    #poster{
+        margin-top: 50px;
+        display: flex;
     }
     
     
@@ -22,7 +26,7 @@
 </body>
 </html>
 <script>
-
+var data_div=document.getElementById("poster")
            
 
  //7fa789f40bc9722ca628a502e0d1f142
@@ -34,24 +38,43 @@ async function getMovie(){
 //http://www.omdbapi.com/?i=tt3896198&apikey=b100d140
 //http://img.omdbapi.com/?apikey=[yourkey]&
     var movie=document.getElementById("parent").value
-     var data_div=document.getElementById("poster")
-     var img=document.createElement("img")
-     img.src="https://m.media-amazon.com/images/M/MV5BOTRiZDE0MjMtMDA0MS00MzU4LWFhMDctYTYwMmU2ZDFmMjViXkEyXkFqcGdeQXVyODE5NzE3OTE@._V1_SX300.jpg"
-     //data_div.append(img)
-
+    var div=document.createElement('div')
+    div.style.marginLeft="100px"
+    var img=document.createElement('img')
+    var h1=document.createElement('h1')
+    var h4=document.createElement('h4')
+    var h5=document.createElement('h5')
+    var h6=document.createElement('h5')
+     
      try{
      let res=await fetch(`http://www.omdbapi.com/?t=${movie}&apikey=b100d140`)
     
      let data=await res.json();
-    console.log("data:",data)
+console.log("data:",data)
 
-        
-        
+        if(data.Error=="Movie not found!"){
+           img.src="data:image/jpeg;base64,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"
+           data_div.append(img)
+       }else{
+        img.src=`${data.Poster}`
+        h1.innerText=`Title:- ${data.Title}`
+        h4.innerText=`Release date:- ${data.Released}`
+        h5.innerText=`Imdb-Rating:- ${data.imdbRating}`
+           div.append(h1,h4,h5)
+        data_div.append(img,div)
        }
-       
-       
+      /* if(data.imdbRating>8){
+           h6.innerText="Recomended"
+           var divi=document.createElement("div")
+           divi.style.marginLeft="30px"
+           h6.style.color="green"
+           divi.append(h6)
+           data_div.append(divi)
+       }*/
+        
+     }
        catch(err){
-           console.log("err:" ,err);
+           //console.log("err:" ,err);
        }
     
            
